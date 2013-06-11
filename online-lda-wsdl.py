@@ -6,8 +6,18 @@ import onlineldavb
 def get_file_content(n, batchsize, path):
     content = list()
     ids = list()
+    set_size = len(os.listdir(path))
+    #_range = range((batchsize*n - (batchsize - 1))%set_size, (batchsize*n)%set_size+1)
+    lower = (batchsize*n - (batchsize - 1)) % set_size
+    if (batchsize*n) % set_size != 0:
+        upper = (batchsize*n) % set_size + 1
+    else:
+	upper = set_size + 1
+    _range = range(lower, upper)
     #print range(batchsize*n - (batchsize - 1), batchsize*n+1)
-    for i in range(batchsize*n - (batchsize - 1), batchsize*n):
+    #print range((batchsize*n - (batchsize - 1))%set_size, (batchsize*n+1)%set_size)
+    print _range
+    for i in _range:
 	file_name = path + str(i) + '.txt'
         all = file(file_name).read()
         content.append(all)
@@ -34,10 +44,10 @@ def main():
             batchsize = batchsize + 1
         
     # The total number of documents in Wikipedia
-    #D = 3.3e6
-    D = len(docs)
+    D = 3.3e6
+    #D = len(docs)
     # The number of topics
-    K = 100
+    K = 40
 
     # How many documents to look at
     #print batchsize
