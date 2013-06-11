@@ -37,4 +37,5 @@ nosetests.xml
 *.txt
 *.txt~
 *.dat
+*.py~
 outcome/
