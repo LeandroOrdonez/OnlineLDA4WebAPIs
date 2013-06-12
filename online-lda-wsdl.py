@@ -7,16 +7,13 @@ def get_file_content(n, batchsize, path):
     content = list()
     ids = list()
     set_size = len(os.listdir(path))
-    #_range = range((batchsize*n - (batchsize - 1))%set_size, (batchsize*n)%set_size+1)
     lower = (batchsize*n - (batchsize - 1)) % set_size
     if (batchsize*n) % set_size != 0:
         upper = (batchsize*n) % set_size + 1
     else:
 	upper = set_size + 1
     _range = range(lower, upper)
-    #print range(batchsize*n - (batchsize - 1), batchsize*n+1)
-    #print range((batchsize*n - (batchsize - 1))%set_size, (batchsize*n+1)%set_size)
-    print _range
+    #print _range
     for i in _range:
 	file_name = path + str(i) + '.txt'
         all = file(file_name).read()
@@ -28,14 +25,15 @@ def get_file_content(n, batchsize, path):
 
 def main():
     """
-    Downloads and analyzes a bunch of random Wikipedia articles using
-    online VB for LDA.
+    Retrieves the content of a set of text files whose content is obtained
+    from SOAP API descriptors.
     """
     path = sys.argv[1]
     docs = os.listdir(path)
 
     # The number of documents to analyze each iteration
     rest = 1
+    #batchsize = len(docs)
     batchsize = 4
     print len(docs)
     while rest != 0:
@@ -43,7 +41,7 @@ def main():
         if (rest != 0):
             batchsize = batchsize + 1
         
-    # The total number of documents in Wikipedia
+    # The total number of documents (is supposed to be a huge/infinite number in an online setting)
     D = 3.3e6
     #D = len(docs)
     # The number of topics
@@ -86,7 +84,7 @@ def main():
 
         # Save lambda, the parameters to the variational distributions
         # over topics, and gamma, the parameters to the variational
-        # distributions over topic weights for the articles analyzed in
+        # distributions over topic weights for the text files analyzed in
         # the last iteration.
         if (iteration % 10 == 0):
             numpy.savetxt('lambda-%d.dat' % iteration, olda._lambda)
