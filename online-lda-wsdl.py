@@ -19,7 +19,7 @@ def get_file_content(n, batchsize, path):
         all = file(file_name).read()
         content.append(all)
 	#print all
-        ids.append(n)
+        ids.append(i)
     return (content, ids)
 
 
