@@ -184,7 +184,7 @@ class OnlineLDA:
                 # If gamma hasn't changed much, we're done.
                 meanchange = n.mean(abs(gammad - lastgamma))
                 if (meanchange < meanchangethresh):
-                    print 'threshold reached...'
+                    #print 'threshold reached...'
                     break
             gamma[d, :] = gammad
             # Contribution of document d to the expected sufficient
