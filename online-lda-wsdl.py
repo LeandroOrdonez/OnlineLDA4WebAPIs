@@ -87,8 +87,8 @@ def main():
         # distributions over topic weights for the text files analyzed in
         # the last iteration.
         if (iteration % 10 == 0):
-            numpy.savetxt('lambda-%d.dat' % iteration, olda._lambda)
-            numpy.savetxt('gamma-%d.dat' % iteration, gamma)
+            numpy.savetxt('parameters/lambda-%d.dat' % iteration, olda._lambda)
+            numpy.savetxt('parameters/gamma-%d.dat' % iteration, gamma)
 
 if __name__ == '__main__':
     main()
