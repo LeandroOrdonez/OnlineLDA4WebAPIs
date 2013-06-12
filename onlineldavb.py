@@ -78,7 +78,7 @@ def parse_doc_list(docs, vocab):
                 ddict[wordtoken] += 1
         wordids.append(ddict.keys())
         wordcts.append(ddict.values())
-
+    
     return((wordids, wordcts))
 
 class OnlineLDA:
@@ -184,6 +184,7 @@ class OnlineLDA:
                 # If gamma hasn't changed much, we're done.
                 meanchange = n.mean(abs(gammad - lastgamma))
                 if (meanchange < meanchangethresh):
+                    print 'threshold reached...'
                     break
             gamma[d, :] = gammad
             # Contribution of document d to the expected sufficient
