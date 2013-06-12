@@ -34,7 +34,7 @@ def main():
     if(len(sys.argv) > 3):
         words_per_topic = int(sys.argv[3])
     else:
-        words_per_topic = 5
+        words_per_topic = 10
 
     topics_file = open('outcome/topics.txt', 'w')
     for k in range(0, len(testlambda)):
