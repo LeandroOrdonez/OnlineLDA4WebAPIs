@@ -40,14 +40,14 @@ def main():
     for d in range(0, len(gamma)):
         thetad = list(gamma[d, :])
         thetad = thetad / sum(thetad)
-        temp = zip(thetad, range(1, len(thetad)+1))
+        temp = zip(thetad, range(0, len(thetad)))
         temp = sorted(temp, key = lambda x: x[0], reverse=True)
         print 'Operation (Id) %d:' % (d+1)
-	topics_file.write('Operation (Id) %d:' % (d))
+	topics_file.write('Operation (Id) %d: \n' % (d+1))
         # feel free to change the "53" here to whatever fits your screen nicely.
         for i in range(0, topics_per_document):
             print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
-	    topics_file.write('\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0]))
+	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
         print
 	topics_file.write('\n')
     topics_file.close()
