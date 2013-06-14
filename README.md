@@ -4,11 +4,11 @@ OnlineLDA4WebAPIs
 ONLINE VARIATIONAL BAYES FOR LATENT DIRICHLET ALLOCATION
 FOR ANALYZING WEB APIS DOCUMENTATION
 
-`
+```
 Leandro Ordóñez Ante
 leandro.ordonez.ante@gmail.com
 leandro@unicauca.edu.co
-`
+```
 
 (C) Copyright 2013, Leandro Ordóñez
 
