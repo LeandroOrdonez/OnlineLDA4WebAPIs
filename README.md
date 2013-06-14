@@ -54,6 +54,7 @@ VB algorithm could for large corpora.
   distributions and stores them as a text file in 'outcome/per-document-topics.txt' 
   (based on the 'printtopics.py' script by Matthew D. Hoffman).
 * `dictnostops.txt`: A vocabulary of English words with the stop words removed.
+* `onlinewikipedia.py` and `wikirandom.py` original scripts by Matthew D. Hoffman.
 * `README.md`: This file.
 * `COPYING`: A copy of the GNU public license version 3.
 
