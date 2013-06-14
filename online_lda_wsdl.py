@@ -93,7 +93,7 @@ def main():
         # over topics, and gamma, the parameters to the variational
         # distributions over topic weights for the text files analyzed in
         # the last iteration.
-        if (iteration % 1 == 0):
+        if (iteration % 10 == 0):
             numpy.savetxt('parameters/lambda-%d.dat' % iteration, olda._lambda)
             numpy.savetxt('parameters/gamma-%d.dat' % iteration, gamma)
     # Save gamma_all for all the processed text files

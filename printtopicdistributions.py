@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# printtopics.py: Prints the per-document topic distributions (based on
+# printtopicdistributions.py: Prints the per-document topic distributions (based on
 # the 'printtopics.py' script by Matthew D. Hoffman)
 #
 # Copyright (C) 2013 Leandro Ordonez
@@ -33,6 +33,9 @@ def main():
     gamma = numpy.loadtxt(sys.argv[1])
     if(len(sys.argv) > 2):
         topics_per_document = int(sys.argv[2])
+	if(topics_per_document > len(gamma[0])):
+            print 'Warning: the maximum number of topics allowed is', len(gamma[0])
+            topics_per_document = len(gamma[0])
     else:
         topics_per_document = 10
 
