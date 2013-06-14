@@ -92,8 +92,6 @@ def main():
     # Dictionary for storing gamma values of the processed text files
     gamma_all = dict()
     #olda = onlineldavb.OnlineLDA(vocab, K, D, 0.01, 0.01, 1024., 0.7)
-    # Run until we've seen D documents. (Feel free to interrupt *much*
-    # sooner than this.)
     for iteration in range(1, documentstoanalyze+1):
         # Download some articles
         (docset, operation_id) = \
