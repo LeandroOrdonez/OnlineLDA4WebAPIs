@@ -68,6 +68,6 @@ python printtopics.py dictnostops.txt parameters/lambda-<#>.dat
 python printtopicdistributions.py parameters/gamma-all.dat
 ```
 
-This would run the algorithm for a numeber of iterations which depends on the size of 
+This would run the algorithm for a number of iterations which depends on the size of 
 the corpus, display the (expected value under the variational posterior of the) 
 topics fit by the algorithm and the per-document-distributions.
