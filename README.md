@@ -4,11 +4,11 @@ OnlineLDA4WebAPIs
 ONLINE VARIATIONAL BAYES FOR LATENT DIRICHLET ALLOCATION
 FOR ANALYZING WEB APIS DOCUMENTATION
 
+`
 Leandro Ordóñez Ante
-
 leandro.ordonez.ante@gmail.com
-
 leandro@unicauca.edu.co
+`
 
 (C) Copyright 2013, Leandro Ordóñez
 
@@ -30,7 +30,7 @@ USA
 ------------------------------------------------------------------------
 
 This Python code (based on the implementation of `ONLINE VARIATIONAL BAYES FOR 
-LATENT DIRICHLET ALLOCATION by Matthew D. Hoffman`) uses the online Variational 
+LATENT DIRICHLET ALLOCATION` by Matthew D. Hoffman) uses the online Variational 
 Bayes (VB) algorithm presented in the paper "Online Learning for Latent Dirichlet
 Allocation" by Matthew D. Hoffman, David M. Blei, and Francis Bach.
 
