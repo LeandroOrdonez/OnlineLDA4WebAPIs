@@ -1,32 +1,6 @@
 OnlineLDA4WebAPIs
 =================
 
-```
-ONLINE VARIATIONAL BAYES FOR LATENT DIRICHLET ALLOCATION
-FOR ANALYZING WEB APIS DOCUMENTATION
-
-Leandro Ordóñez Ante
-leandro.ordonez.ante@gmail.com
-leandro@unicauca.edu.co
-
-(C) Copyright 2013, Leandro Ordóñez
-
-This is free software, you can redistribute it and/or modify it under
-the terms of the GNU General Public License.
-
-The GNU General Public License does not permit this software to be
-redistributed in proprietary programs.
-
-This software is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
-USA
-```
-
 This Python code (based on the implementation of `ONLINE VARIATIONAL BAYES FOR 
 LATENT DIRICHLET ALLOCATION` by Matthew D. Hoffman) uses the online Variational 
 Bayes (VB) algorithm presented in the paper "Online Learning for Latent Dirichlet
@@ -58,7 +32,6 @@ VB algorithm could for large corpora.
   topic distribution of the first 40 text files analized by the algorithm.
 * `onlinewikipedia.py` and `wikirandom.py` original scripts by Matthew D. Hoffman.
 * `README.md`: This file.
-* `COPYING`: A copy of the GNU public license version 3.
 
 You will need to have the numpy and scipy packages installed somewhere
 that Python can find them to use these scripts.
