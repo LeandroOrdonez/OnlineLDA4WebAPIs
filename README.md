@@ -29,7 +29,7 @@ VB algorithm could for large corpora.
   (based on the 'printtopics.py' script by Matthew D. Hoffman).
 * `dictnostops.txt`: A vocabulary of English words with the stop words removed.
 * `plot_topic_distributions.m`: A simple octave script for displaying the per-document
-  topic distribution of 20 text files analized by the algorithm (the files are selected at random).
+  topic distribution of 12 text files analized by the algorithm (the files are selected at random).
 * `onlinewikipedia.py` and `wikirandom.py` original scripts by Matthew D. Hoffman.
 * `README.md`: This file.
 
