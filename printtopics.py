@@ -22,6 +22,8 @@ import sys, os, re, random, math, urllib2, time, cPickle
 import numpy
 
 import onlineldavb
+import rdf_sesame.model_instantiation as rdfmi
+import rdf_sesame.sesamehandler as sesame
 
 def main():
     """
@@ -37,6 +39,8 @@ def main():
         words_per_topic = 10
 
     topics_file = open('outcome/topics.txt', 'w')
+    # Creating a Sesame repository handler (with default values).
+    repo = sesame.SesameHandler()
     for k in range(0, len(testlambda)):
         lambdak = list(testlambda[k, :])
         lambdak = lambdak / sum(lambdak)
@@ -44,10 +48,17 @@ def main():
         temp = sorted(temp, key = lambda x: x[0], reverse=True)
         print 'topic %d:' % (k)
 	topics_file.write('topic %d: \n' % (k))
-        # feel free to change the "53" here to whatever fits your screen nicely.
+        # Storing the topics (categories) and their associated terms as RDF statements.
+	term_relations = list()
         for i in range(0, words_per_topic):
             print '%20s  \t---\t  %.4f' % (vocab[temp[i][1]], temp[i][0])
 	    topics_file.write('%20s  \t---\t  %.4f \n' % (vocab[temp[i][1]], temp[i][0]))
+            term = rdfmi.new_term(`temp[i][1]`, vocab[temp[i][1]])
+            term_relation = rdfmi.new_term_relation(`k`+`temp[i][1]`, temp[i][0], `temp[i][1]`)
+            term_relations.append(`k`+`temp[i][1]`)
+            repo.post_statement(term+'\n'+term_relation)
+        category = rdfmi.new_category(`k`, term_relations)
+        repo.post_statement(category)
         print
 	topics_file.write('\n')
     topics_file.close()
