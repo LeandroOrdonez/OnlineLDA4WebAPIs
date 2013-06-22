@@ -37,11 +37,11 @@ xml:base=\""""+namespace+"""">
 </rdf:RDF>"""
 
     def post_statement(self, rdf_encoded_data):
-        print 'POSTing statement to %s' % (self.endpoint)
+        #print 'POSTing statement to %s' % (self.endpoint)
         data = self.rdf_wrap % (rdf_encoded_data)
         headers= {
             'content-type': 'application/rdf+xml;charset=UTF-8'
         }
         (response, content) = httplib2.Http().request(self.endpoint, 'POST', body=data, headers=headers)
-        print 'Response %s' % response.status
-        print content
+        #print 'Response %s' % response.status
+        #print content
