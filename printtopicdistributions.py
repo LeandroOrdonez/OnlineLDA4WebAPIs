@@ -22,6 +22,8 @@ import sys, os, re, random, math, urllib2, time, cPickle
 import numpy
 
 import onlineldavb
+import rdf_sesame.model_instantiation as rdfmi
+import rdf_sesame.sesamehandler as sesame
 
 def main():
     """
@@ -40,6 +42,8 @@ def main():
         topics_per_document = 10
 
     topics_file = open('outcome/per-document-topics.txt', 'w')
+    # Creating a Sesame repository handler (with default values).
+    repo = sesame.SesameHandler()
     for d in range(0, len(gamma)):
         thetad = list(gamma[d, :])
         thetad = thetad / sum(thetad)
@@ -47,10 +51,18 @@ def main():
         temp = sorted(temp, key = lambda x: x[0], reverse=True)
         print 'Operation (Id) %d:' % (d+1)
 	topics_file.write('Operation (Id) %d: \n' % (d+1))
-        # feel free to change the "53" here to whatever fits your screen nicely.
+        # Storing the documents (operations) and the categories they belong to as RDF statements.
+        membership_relations = list()
+        rdf_data = ''
         for i in range(0, topics_per_document):
             print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
+            membership_relation = rdfmi.new_membership_relation(`d` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
+            membership_relations.append(`d` + ';' + `temp[i][1]`)
+            rdf_data = rdf_data + membership_relation
+        operation = rdfmi.new_operation(`d`, membership_relations)
+        rdf_data = rdf_data + operation
+        repo.post_statement(rdf_data)
         print
 	topics_file.write('\n')
     topics_file.close()
