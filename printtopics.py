@@ -50,15 +50,18 @@ def main():
 	topics_file.write('topic %d: \n' % (k))
         # Storing the topics (categories) and their associated terms as RDF statements.
 	term_relations = list()
+        rdf_data=''
         for i in range(0, words_per_topic):
             print '%20s  \t---\t  %.4f' % (vocab[temp[i][1]], temp[i][0])
 	    topics_file.write('%20s  \t---\t  %.4f \n' % (vocab[temp[i][1]], temp[i][0]))
             term = rdfmi.new_term(`temp[i][1]`, vocab[temp[i][1]])
-            term_relation = rdfmi.new_term_relation(`k`+`temp[i][1]`, temp[i][0], `temp[i][1]`)
-            term_relations.append(`k`+`temp[i][1]`)
-            repo.post_statement(term+'\n'+term_relation)
+            term_relation = rdfmi.new_term_relation(`k` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
+            term_relations.append(`k`+ ';' + `temp[i][1]`)
+            #repo.post_statement(term+'\n'+term_relation+'\n')
+            rdf_data = rdf_data + (term + term_relation)
         category = rdfmi.new_category(`k`, term_relations)
-        repo.post_statement(category)
+        rdf_data = rdf_data + category
+        repo.post_statement(rdf_data)
         print
 	topics_file.write('\n')
     topics_file.close()
