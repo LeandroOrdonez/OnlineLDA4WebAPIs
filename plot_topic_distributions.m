@@ -1,6 +1,6 @@
 function plot_topic_distributions()
     gamma=load('parameters/gamma-all.dat');
-    indices = round((rand(1,12).*814)+1);
+    indices = sort(round((rand(1,12).*814)+1));
     figure
     for i = 1:12
         subplot(3,4,i)
