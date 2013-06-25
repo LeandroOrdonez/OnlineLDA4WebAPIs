@@ -57,10 +57,10 @@ def main():
         for i in range(0, topics_per_document):
             print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
-            membership_relation = rdfmi.new_membership_relation(`d` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
-            membership_relations.append(`d` + ';' + `temp[i][1]`)
+            membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
+            membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
-        operation = rdfmi.new_operation(`d`, membership_relations)
+        operation = rdfmi.new_operation(`(d+1)`, membership_relations)
         rdf_data = rdf_data + operation
         repo.post_statement(rdf_data)
         print
