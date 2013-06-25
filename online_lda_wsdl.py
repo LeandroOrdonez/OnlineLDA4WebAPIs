@@ -116,6 +116,8 @@ def main():
         if (iteration % 10 == 0):
             numpy.savetxt('parameters/lambda-%d.dat' % iteration, olda._lambda)
             numpy.savetxt('parameters/gamma-%d.dat' % iteration, gamma)
+        if (iteration == documentstoanalyze):
+            numpy.savetxt('parameters/lambda-all.dat', olda._lambda)
     # Save gamma_all for all the processed text files
     temp = gamma_all.items()
     temp = sorted(temp, key = lambda x: x[0])
