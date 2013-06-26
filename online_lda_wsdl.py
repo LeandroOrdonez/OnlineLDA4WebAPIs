@@ -57,7 +57,7 @@ def main():
     rest = 1
     #batchsize = len(docs)
     batchsize = 4
-    print len(docs)
+    #print len(docs)
     while rest != 0:
         rest = len(docs) % batchsize
         if (rest != 0):
@@ -82,7 +82,7 @@ def main():
         K = int(sys.argv[3])
 
     
-    print documentstoanalyze
+    #print documentstoanalyze
     # Our vocabulary
     vocab = file('./dictnostops.txt').readlines()
     W = len(vocab)
@@ -101,8 +101,11 @@ def main():
         # Compute an estimate of held-out perplexity
         (wordids, wordcts) = onlineldavb.parse_doc_list(docset, olda._vocab)
         perwordbound = bound * len(docset) / (D * sum(map(sum, wordcts)))
-        print ('%d:  rho_t = %f,  held-out perplexity estimate = %f' % \
+        #print ('%d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
+        #    (iteration, olda._rhot, numpy.exp(-perwordbound)))
+        sys.stdout.write('\r%d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
             (iteration, olda._rhot, numpy.exp(-perwordbound)))
+        sys.stdout.flush()
 
         # Store the gamma values into the gamma_all for each one of the text files
         # in the current iteration 
@@ -119,6 +122,7 @@ def main():
         if (iteration == documentstoanalyze):
             numpy.savetxt('parameters/lambda-all.dat', olda._lambda)
     # Save gamma_all for all the processed text files
+    print '\n'
     temp = gamma_all.items()
     temp = sorted(temp, key = lambda x: x[0])
     numpy.savetxt('parameters/gamma-all.dat' , [item[1] for item in temp])
