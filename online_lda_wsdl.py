@@ -101,10 +101,10 @@ def main():
         # Compute an estimate of held-out perplexity
         (wordids, wordcts) = onlineldavb.parse_doc_list(docset, olda._vocab)
         perwordbound = bound * len(docset) / (D * sum(map(sum, wordcts)))
-        #print ('%d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
+        #print ('iteration %d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
         #    (iteration, olda._rhot, numpy.exp(-perwordbound)))
-        sys.stdout.write('\r%d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
-            (iteration, olda._rhot, numpy.exp(-perwordbound)))
+        sys.stdout.write('\riteration %d:  rho_t = %f,  held-out perplexity estimate = %f %s' % \
+            (iteration, olda._rhot, numpy.exp(-perwordbound), ' '*10))
         sys.stdout.flush()
 
         # Store the gamma values into the gamma_all for each one of the text files
