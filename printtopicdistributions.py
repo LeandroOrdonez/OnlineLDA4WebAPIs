@@ -42,6 +42,7 @@ def main():
         topics_per_document = 10
 
     topics_file = open('outcome/per-document-topics.txt', 'w')
+    topics_csv = open('outcome/per-document-topics.csv', 'w')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     for d in range(0, len(gamma)):
@@ -49,23 +50,28 @@ def main():
         thetad = thetad / sum(thetad)
         temp = zip(thetad, range(0, len(thetad)))
         temp = sorted(temp, key = lambda x: x[0], reverse=True)
-        print 'Operation (Id) %d:' % (d+1)
+        #print 'Operation (Id) %d:' % (d+1)
+        sys.stdout.write('\rResolving Per-document topic distributions... (%d/%d)' % ((d+1), len(gamma)))
+        sys.stdout.flush()
 	topics_file.write('Operation (Id) %d: \n' % (d+1))
         # Storing the documents (operations) and the categories they belong to as RDF statements.
         membership_relations = list()
         rdf_data = ''
         for i in range(0, topics_per_document):
-            print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
+            #print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
+            topics_csv.write('Operation %s, Topic %s, %.4f\n' % (`(d+1)`, temp[i][1], temp[i][0]))
             membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
         operation = rdfmi.new_operation(`(d+1)`, membership_relations)
         rdf_data = rdf_data + operation
         repo.post_statement(rdf_data)
-        print
+        #print
 	topics_file.write('\n')
+    print '\n'
     topics_file.close()
+    topics_csv.close()
 
 if __name__ == '__main__':
     main()
