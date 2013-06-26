@@ -39,6 +39,7 @@ def main():
         words_per_topic = 10
 
     topics_file = open('outcome/topics.txt', 'w')
+    topics_csv = open('outcome/topics.csv', 'w')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     for k in range(0, len(testlambda)):
@@ -46,14 +47,17 @@ def main():
         lambdak = lambdak / sum(lambdak)
         temp = zip(lambdak, range(0, len(lambdak)))
         temp = sorted(temp, key = lambda x: x[0], reverse=True)
-        print 'topic %d:' % (k)
+        #print 'topic %d:' % (k)
+        sys.stdout.write('\rResolving Topics... (%d/%d)' % ((k+1), len(testlambda)))
+        sys.stdout.flush()
 	topics_file.write('topic %d: \n' % (k))
         # Storing the topics (categories) and their associated terms as RDF statements.
 	term_relations = list()
         rdf_data=''
         for i in range(0, words_per_topic):
-            print '%20s  \t---\t  %.4f' % (vocab[temp[i][1]], temp[i][0])
+            #print '%20s  \t---\t  %.4f' % (vocab[temp[i][1]], temp[i][0])
 	    topics_file.write('%20s  \t---\t  %.4f \n' % (vocab[temp[i][1]], temp[i][0]))
+            topics_csv.write('Topic %d, %s, %.4f\n' % (k, vocab[temp[i][1]], temp[i][0]))
             term = rdfmi.new_term(`temp[i][1]`, vocab[temp[i][1]])
             term_relation = rdfmi.new_term_relation(`k` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             term_relations.append(`k`+ ';' + `temp[i][1]`)
@@ -62,9 +66,11 @@ def main():
         category = rdfmi.new_category(`k`, term_relations)
         rdf_data = rdf_data + category
         repo.post_statement(rdf_data)
-        print
+        #print
 	topics_file.write('\n')
+    print '\n'
     topics_file.close()
+    topics_csv.close()
 
 if __name__ == '__main__':
     main()
