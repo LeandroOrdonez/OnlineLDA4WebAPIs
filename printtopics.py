@@ -42,6 +42,11 @@ def main():
     topics_csv = open('outcome/topics.csv', 'w')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
+    # Following three lines are just for demo purposes#
+    repo.delete_statements()
+    rdf_api_model = './rdf_sesame/web_api_model.rdf'
+    repo.post_rdf_file(rdf_api_model)
+    ###################################################
     for k in range(0, len(testlambda)):
         lambdak = list(testlambda[k, :])
         lambdak = lambdak / sum(lambdak)
@@ -65,7 +70,7 @@ def main():
             rdf_data = rdf_data + (term + term_relation)
         category = rdfmi.new_category(`k`, term_relations)
         rdf_data = rdf_data + category
-        repo.post_statement(rdf_data)
+        repo.post_statements(rdf_data)
         #print
 	topics_file.write('\n')
     print '\n'
