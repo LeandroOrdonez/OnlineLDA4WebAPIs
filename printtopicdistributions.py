@@ -66,12 +66,21 @@ def main():
             rdf_data = rdf_data + membership_relation
         operation = rdfmi.new_operation(`(d+1)`, membership_relations)
         rdf_data = rdf_data + operation
-        repo.post_statement(rdf_data)
+        repo.post_statements(rdf_data)
         #print
 	topics_file.write('\n')
     print '\n'
     topics_file.close()
     topics_csv.close()
+    # For demo purposes
+    clean()
+
+def clean():
+    os.remove('parameters/gamma-all.dat')
+    os.remove('parameters/lambda-all.dat')
+    filelist = [ f for f in os.listdir("../.doc/") if f.endswith(".txt") ]
+    for f in filelist:
+        os.remove(f)
 
 if __name__ == '__main__':
     main()
