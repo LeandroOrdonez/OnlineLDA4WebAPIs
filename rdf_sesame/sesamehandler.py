@@ -36,9 +36,28 @@ xml:base=\""""+namespace+"""">
 %s
 </rdf:RDF>"""
 
-    def post_statement(self, rdf_encoded_data):
+    def post_statements(self, rdf_encoded_data):
         #print 'POSTing statement to %s' % (self.endpoint)
         data = self.rdf_wrap % (rdf_encoded_data)
+        headers= {
+            'content-type': 'application/rdf+xml;charset=UTF-8'
+        }
+        (response, content) = httplib2.Http().request(self.endpoint, 'POST', body=data, headers=headers)
+        #print 'Response %s' % response.status
+        #print content
+
+    def delete_statements(self, subj=None, pred=None, obj=None):
+        params = {
+            'subj': subj,
+            'pred': pred,
+            'obj': obj
+        }
+        (response, content) = httplib2.Http().request(self.endpoint, 'DELETE', urllib.urlencode(params))
+        #print 'Response %s' % response.status
+        #print content
+
+    def post_rdf_file(self, rdf_file_path):
+        data = file(rdf_file_path).read()
         headers= {
             'content-type': 'application/rdf+xml;charset=UTF-8'
         }
