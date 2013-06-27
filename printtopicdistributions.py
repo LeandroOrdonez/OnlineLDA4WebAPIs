@@ -78,7 +78,8 @@ def main():
 def clean():
     os.remove('parameters/gamma-all.dat')
     os.remove('parameters/lambda-all.dat')
-    filelist = [ f for f in os.listdir("../.doc/") if f.endswith(".txt") ]
+    os.chdir('../.doc/')
+    filelist = [ f for f in os.listdir('.') if f.endswith('.txt') ]
     for f in filelist:
         os.remove(f)
 
