@@ -43,6 +43,7 @@ def main():
 
     topics_file = open('outcome/per-document-topics.txt', 'w')
     topics_csv = open('outcome/per-document-topics.csv', 'w')
+    topics_csv.write('Operation ID,Topic,Topic Probability\n')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     for d in range(0, len(gamma)):
@@ -60,7 +61,7 @@ def main():
         for i in range(0, topics_per_document):
             #print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
-            topics_csv.write('Operation %s, Topic %s, %.4f\n' % (`(d+1)`, temp[i][1], temp[i][0]))
+            topics_csv.write('%s,%s,%.4f\n' % (`(d+1)`, temp[i][1], temp[i][0]))
             membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
