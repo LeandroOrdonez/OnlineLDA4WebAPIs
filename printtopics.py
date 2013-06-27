@@ -40,7 +40,7 @@ def main():
 
     topics_file = open('outcome/topics.txt', 'w')
     topics_csv = open('outcome/topics.csv', 'w')
-    topic_csv.write('Topic,Term,Term Probability\n')
+    topics_csv.write('Topic,Term,Term Probability\n')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     # Following three lines are just for demo purposes#
