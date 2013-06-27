@@ -40,6 +40,7 @@ def main():
 
     topics_file = open('outcome/topics.txt', 'w')
     topics_csv = open('outcome/topics.csv', 'w')
+    topic_csv.write = ('Topic,Term,Term Probability\n')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     # Following three lines are just for demo purposes#
@@ -62,7 +63,7 @@ def main():
         for i in range(0, words_per_topic):
             #print '%20s  \t---\t  %.4f' % (vocab[temp[i][1]], temp[i][0])
 	    topics_file.write('%20s  \t---\t  %.4f \n' % (vocab[temp[i][1]], temp[i][0]))
-            topics_csv.write('Topic %d, %s, %.4f\n' % (k, vocab[temp[i][1]], temp[i][0]))
+            topics_csv.write('%d,%s,%.4f\n' % (k, vocab[temp[i][1]], temp[i][0]))
             term = rdfmi.new_term(`temp[i][1]`, vocab[temp[i][1]])
             term_relation = rdfmi.new_term_relation(`k` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             term_relations.append(`k`+ ';' + `temp[i][1]`)
