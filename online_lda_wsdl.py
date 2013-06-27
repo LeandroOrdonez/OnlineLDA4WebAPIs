@@ -103,8 +103,8 @@ def main():
         perwordbound = bound * len(docset) / (D * sum(map(sum, wordcts)))
         #print ('iteration %d:  rho_t = %f,  held-out perplexity estimate = %f ' % \
         #    (iteration, olda._rhot, numpy.exp(-perwordbound)))
-        sys.stdout.write('\riteration %d:  rho_t = %f,  held-out perplexity estimate = %f %s' % \
-            (iteration, olda._rhot, numpy.exp(-perwordbound), ' '*10))
+        sys.stdout.write('\riteration %d/%d:  rho_t = %f,  held-out perplexity estimate = %f %s' % \
+            (iteration, documentstoanalize, olda._rhot, numpy.exp(-perwordbound), ' '*10))
         sys.stdout.flush()
 
         # Store the gamma values into the gamma_all for each one of the text files
