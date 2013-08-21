@@ -20,6 +20,7 @@
 
 import sys, os, re, random, math, urllib2, time, cPickle
 import numpy
+import MySQLdb as mysql
 
 import onlineldavb
 import rdf_sesame.model_instantiation as rdfmi
@@ -46,6 +47,9 @@ def main():
     topics_csv.write('Operation ID,Topic,Topic Probability\n')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
+    # Connecting to MySQL database:
+    db = mysql.connect(host='localhost', user='root', passwd='', db='service_registry', unix_socket='/opt/lampp/var/mysql/mysql.sock')
+    cursor = db.cursor()
     for d in range(0, len(gamma)):
         thetad = list(gamma[d, :])
         thetad = thetad / sum(thetad)
@@ -65,7 +69,11 @@ def main():
             membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
-        operation = rdfmi.new_operation(`(d+1)`, membership_relations)
+        #Querying the database for retrieving the operation name and service uri
+        query = 'SELECT SOAP_OPERATION.OPERATIONNAME, SOAP_OPERATION.SOAPSERVICE_SERVICEURI FROM SOAP_OPERATION WHERE SOAP_OPERATION.ID=%s' % `(d+1)`
+        id_op = cursor.execute(query)
+        results = cursor.fetchall()
+        operation = rdfmi.new_operation(`(d+1)`, results[0][0], results[0][1], membership_relations)
         rdf_data = rdf_data + operation
         repo.post_statements(rdf_data)
         #print
