@@ -27,12 +27,14 @@ def new_membership_relation(membership_relation_id, membership_probability, cate
     <category_value rdf:resource="http://www.example.org/categories/%s"/>
     </Membership_Relation>\n""" % (membership_relation_id, membership_probability, category_value)
 
-def new_operation(operation_id, membership_relations):
+def new_operation(operation_id, operation_name, service_uri, membership_relations):
     memberships = ''.join(['<is_member_of rdf:resource="http://www.example.org/membership_relations/%s"/>\n' \
 % membership for membership in membership_relations])
     return """<Operation rdf:about="http://www.example.org/operations/%s">
+    <has_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">%s</has_name>
+    <has_service_uri rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">%s</has_service_uri>
     %s  
-    </Operation>\n""" % (operation_id, memberships)
+    </Operation>\n""" % (operation_id, operation_name, service_uri, memberships)
 
 def new_term_relation(term_relation_id, term_probability, term_value):
     return """<Term_Relation rdf:about="http://www.example.org/term_relations/%s">
