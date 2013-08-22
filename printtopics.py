@@ -74,7 +74,7 @@ def main():
         rdf_data = rdf_data + category
         repo.post_statements(rdf_data)
         #print
-        words_file.write(', '.join(vocab[temp[j][1]] for j in range(0, words_per_topic)))
+        words_file.write(', '.join(vocab[temp[j][1]] for j in range(0, words_per_topic)) + '\n')
 	topics_file.write('\n')
     print '\n'
     topics_file.close()
