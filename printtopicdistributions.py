@@ -20,6 +20,7 @@
 
 import sys, os, re, random, math, urllib2, time, cPickle
 import numpy
+import MySQLdb as mysql
 
 import onlineldavb
 import rdf_sesame.model_instantiation as rdfmi
@@ -43,9 +44,13 @@ def main():
 
     topics_file = open('outcome/per-document-topics.txt', 'w')
     topics_csv = open('outcome/per-document-topics.csv', 'w')
-    topics_csv.write('Operation ID,Topic,Topic Probability\n')
+    topics_csv.write('Operation ID,Operation Name,Topic,Topic Probability,Terms\n')
+    words_per_topic = file('outcome/words_per_topic.txt').readlines()
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
+    # Connecting to MySQL database:
+    db = mysql.connect(host='localhost', user='root', passwd='', db='service_registry', unix_socket='/opt/lampp/var/mysql/mysql.sock')
+    cursor = db.cursor()
     for d in range(0, len(gamma)):
         thetad = list(gamma[d, :])
         thetad = thetad / sum(thetad)
@@ -58,14 +63,18 @@ def main():
         # Storing the documents (operations) and the categories they belong to as RDF statements.
         membership_relations = list()
         rdf_data = ''
+        #Querying the database for retrieving the operation name and service uri
+        query = 'SELECT SOAP_OPERATION.OPERATIONNAME, SOAP_OPERATION.SOAPSERVICE_SERVICEURI FROM SOAP_OPERATION WHERE SOAP_OPERATION.ID=%s' % `(d+1)`
+        id_op = cursor.execute(query)
+        results = cursor.fetchall()
         for i in range(0, topics_per_document):
             #print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
-            topics_csv.write('%s,%s,%.4f\n' % (`(d+1)`, temp[i][1], temp[i][0]))
+            topics_csv.write('%s,%s,%s,%.4f,%s\n' % (`(d+1)`, results[0][0], temp[i][1], temp[i][0], words_per_topic[temp[i][1]]))
             membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
-        operation = rdfmi.new_operation(`(d+1)`, membership_relations)
+        operation = rdfmi.new_operation(`(d+1)`, results[0][0], results[0][1], membership_relations)
         rdf_data = rdf_data + operation
         repo.post_statements(rdf_data)
         #print

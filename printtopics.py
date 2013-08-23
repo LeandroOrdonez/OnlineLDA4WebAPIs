@@ -41,6 +41,7 @@ def main():
     topics_file = open('outcome/topics.txt', 'w')
     topics_csv = open('outcome/topics.csv', 'w')
     topics_csv.write('Topic,Term,Term Probability\n')
+    words_file = open('outcome/words_per_topic.txt', 'w')
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     # Following three lines are just for demo purposes#
@@ -73,10 +74,12 @@ def main():
         rdf_data = rdf_data + category
         repo.post_statements(rdf_data)
         #print
+        words_file.write('; '.join(vocab[temp[j][1]] for j in range(0, words_per_topic)) + '\n')
 	topics_file.write('\n')
     print '\n'
     topics_file.close()
     topics_csv.close()
+    words_file.close()
 
 if __name__ == '__main__':
     main()

@@ -17,6 +17,8 @@
       <category_value rdf:resource="http://www.example.org/categories/2"/>
     </Membership_Relation>
     <Operation rdf:about="http://www.example.org/operations/0">
+      <has_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">StandarizedAddress</has_name>
+      <has_service_uri rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl</has_service_uri>
       <is_member_of rdf:resource="http://www.example.org/membership_relations/0"/>
       <is_member_of rdf:resource="http://www.example.org/membership_relations/1"/>
       <is_member_of rdf:resource="http://www.example.org/membership_relations/2"/>
