@@ -70,7 +70,7 @@ def main():
         for i in range(0, topics_per_document):
             #print '\t Topic %s  \t---\t  %.4f' % (temp[i][1], temp[i][0])
 	    topics_file.write('\t Topic %s  \t---\t  %.4f \n' % (temp[i][1], temp[i][0]))
-            topics_csv.write('%s,%s,%s,%.4f,%s\n' % (`(d+1)`, results[0][0], temp[i][1], temp[i][0], words_per_topic[temp[i][1]]))
+            topics_csv.write('%s,%s,%s,%.4f,%s\n' % (`(d+1)`, results[0][0], temp[i][1], temp[i][0], words_per_topic[temp[i][1]].rstrip()))
             membership_relation = rdfmi.new_membership_relation(`(d+1)` + ';' + `temp[i][1]`, temp[i][0], `temp[i][1]`)
             membership_relations.append(`(d+1)` + ';' + `temp[i][1]`)
             rdf_data = rdf_data + membership_relation
