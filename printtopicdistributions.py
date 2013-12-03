@@ -22,13 +22,12 @@ import sys, os, re, random, math, urllib2, time, cPickle
 import numpy
 import MySQLdb as mysql
 
-import onlineldavb
 import rdf_sesame.model_instantiation as rdfmi
 import rdf_sesame.sesamehandler as sesame
 
 def main():
     """
-    Displays the per-document topic distribution fit by onlineldavb.py. The first column gives the
+    Displays the per-document topic distribution fitted by onlineldavb.py. The first column gives the
     (expected) most prominent topics in the document, the second column
     gives their (expected) relative prominence.
     """
@@ -42,10 +41,10 @@ def main():
     else:
         topics_per_document = 10
 
-    topics_file = open('outcome/per-document-topics.txt', 'w')
-    topics_csv = open('outcome/per-document-topics.csv', 'w')
+    topics_file = open('../outcome/per-document-topics.txt', 'w')
+    topics_csv = open('../outcome/per-document-topics.csv', 'w')
     topics_csv.write('Operation ID,Operation Name,Topic,Topic Probability,Terms\n')
-    words_per_topic = file('outcome/words_per_topic.txt').readlines()
+    words_per_topic = file('../outcome/words_per_topic.txt').readlines()
     # Creating a Sesame repository handler (with default values).
     repo = sesame.SesameHandler()
     # Connecting to MySQL database:
